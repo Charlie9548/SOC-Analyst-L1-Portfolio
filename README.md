@@ -69,7 +69,7 @@ data.win.system.eventID: "4625"
 - Basic SOC alert triage
 
 ## Project Report
-See the [Wazuh SIEM Project Report](./Wazuh_SIEM_Project_Report_v2.pdf) for the methodology, evidence, findings, and next investigation steps.
+See the [Wazuh SIEM Project Report][View Project Report (PDF)](./Wazuh_SIEM_Project_Report_v3.pdf) for the methodology, evidence, findings, and next investigation steps.
 
 ## Future Improvements
 - Investigate the username, source IP, and failure reason in individual alerts.
