@@ -4,6 +4,8 @@ Endpoint detection lab that uses **Sysmon** and **Wazuh** to detect common attac
 
 > Part of my SOC Analyst L1 portfolio. Project 1 (Wazuh failed-logon detection, Event ID 4625) is documented separately in this repo.
 
+**Full report (PDF):** [Sysmon_Wazuh_Project_Report.pdf](Sysmon_Wazuh_Project_Report.pdf)
+
 ## Objective
 
 - Collect detailed endpoint telemetry with Sysmon and forward it to Wazuh
@@ -116,24 +118,13 @@ Sysmon deployment, Wazuh agent and manager administration, custom rule writing (
 ## Repository Structure
 
 ```
-.
+Project-2-Sysmon-Wazuh/
 ├── README.md
-├── rules/
-│   └── local_rules.xml
-├── screenshots/screenshots/
-│   ├── test1-encoded-powershell.png
-│   ├── test2-sysmon-before.png
-│   ├── test2-alert-dashboard.png
-│   ├── test2-alert-details.png
-│   ├── test2-rule-mitre.png
-│   ├── rule-100201-local-rules.png
-│   ├── test2-alert-events.png
-│   ├── test3-rule-60109.png
-│   ├── test3-eventdata.png
-│   └── test3-event-4720.png
-└── report/
-    └── Sysmon_Wazuh_Project_Report.pdf
+├── Sysmon_Wazuh_Project_Report.pdf
+└── screenshots/screenshots/   (evidence images used above)
 ```
+
+The full write-up with all evidence is in [Sysmon_Wazuh_Project_Report.pdf](Sysmon_Wazuh_Project_Report.pdf).
 
 ## Disclaimer
 
