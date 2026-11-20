@@ -31,7 +31,7 @@ Endpoint detection lab that uses **Sysmon** and **Wazuh** to detect common attac
 - **Hunting query:** `agent.name: "win-10" AND data.win.eventdata.commandLine: *EncodedCommand*`
 - **Evidence:**
 
-![Encoded PowerShell alert, rule 92057](screenshots/test1-encoded-powershell.png)
+![Encoded PowerShell alert, rule 92057](screenshots/screenshots/test1-encoded-powershell.png)
 
 ## Test 2: Scheduled Task Persistence (Detection Gap)
 
@@ -62,25 +62,25 @@ Endpoint detection lab that uses **Sysmon** and **Wazuh** to detect common attac
 
 Before: Sysmon captured the `schtasks /create` event, but Wazuh raised no alert.
 
-![Sysmon event before the custom rule](screenshots/test2-sysmon-before.png)
+![Sysmon event before the custom rule](screenshots/screenshots/test2-sysmon-before.png)
 
 Custom rule 100201 as written in `local_rules.xml` on the manager:
 
-![Rule 100201 in local_rules.xml](screenshots/rule-100201-local-rules.png)
+![Rule 100201 in local_rules.xml](screenshots/screenshots/rule-100201-local-rules.png)
 
 After: Wazuh dashboard showing the rule 100201 alert and its MITRE mapping.
 
-![Dashboard, rule 100201](screenshots/test2-alert-dashboard.png)
+![Dashboard, rule 100201](screenshots/screenshots/test2-alert-dashboard.png)
 
-![Events list, rule 100201](screenshots/test2-alert-events.png)
+![Events list, rule 100201](screenshots/screenshots/test2-alert-events.png)
 
 Alert details (command line, parent process, integrity level):
 
-![Alert details](screenshots/test2-alert-details.png)
+![Alert details](screenshots/screenshots/test2-alert-details.png)
 
 Rule and MITRE fields (T1053.005):
 
-![Rule and MITRE fields](screenshots/test2-rule-mitre.png)
+![Rule and MITRE fields](screenshots/screenshots/test2-rule-mitre.png)
 
 ## Test 3: Local Account Creation
 
@@ -91,11 +91,11 @@ Rule and MITRE fields (T1053.005):
 - **Note on `%%1793`, `%%1794`, `%%1797`:** Windows resource placeholders meaning "not set", "never" and "all"
 - **Evidence:**
 
-![Rule 60109 alert](screenshots/test3-rule-60109.png)
+![Rule 60109 alert](screenshots/screenshots/test3-rule-60109.png)
 
-![Event data for the new account](screenshots/test3-eventdata.png)
+![Event data for the new account](screenshots/screenshots/test3-eventdata.png)
 
-![Windows Event ID 4720, target user testuser](screenshots/test3-event-4720.png)
+![Windows Event ID 4720, target user testuser](screenshots/screenshots/test3-event-4720.png)
 
 ## MITRE ATT&CK Mapping
 
@@ -120,7 +120,7 @@ Sysmon deployment, Wazuh agent and manager administration, custom rule writing (
 ├── README.md
 ├── rules/
 │   └── local_rules.xml
-├── screenshots/
+├── screenshots/screenshots/
 │   ├── test1-encoded-powershell.png
 │   ├── test2-sysmon-before.png
 │   ├── test2-alert-dashboard.png
