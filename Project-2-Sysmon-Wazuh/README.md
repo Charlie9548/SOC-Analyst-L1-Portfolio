@@ -29,7 +29,9 @@ Endpoint detection lab that uses **Sysmon** and **Wazuh** to detect common attac
 - **Behaviour:** PowerShell run with a base64 encoded command (`-EncodedCommand`)
 - **Result:** Wazuh rule 92057, level 12, "Powershell.exe spawned a powershell process which executed a base64 encoded command"
 - **Hunting query:** `agent.name: "win-10" AND data.win.eventdata.commandLine: *EncodedCommand*`
-- **Evidence:** `screenshots/test1-encoded-powershell.png`
+- **Evidence:**
+
+![Encoded PowerShell alert, rule 92057](screenshots/test1-encoded-powershell.png)
 
 ## Test 2: Scheduled Task Persistence (Detection Gap)
 
@@ -57,10 +59,28 @@ Endpoint detection lab that uses **Sysmon** and **Wazuh** to detect common attac
   - The `commandLine` field matches `/create`, so `/query` and `/delete` do not alert
 - **Validation:** Rule syntax checked with `wazuh-analysisd -t`, manager restarted, test re-run. Wazuh fired rule 100201 (level 10, `rule.mitre.id: T1053.005`, tactics Execution, Persistence, Privilege Escalation). Dashboard query: `rule.id: 100201`
 - **Evidence:**
-  - Before (Sysmon event, no Wazuh alert): `screenshots/test2-sysmon-before.png`
-  - After (alert on dashboard): `screenshots/test2-alert-dashboard.png`
-  - Alert details (command line, parent process): `screenshots/test2-alert-details.png`
-  - Rule and MITRE fields: `screenshots/test2-rule-mitre.png`
+
+Before: Sysmon captured the `schtasks /create` event, but Wazuh raised no alert.
+
+![Sysmon event before the custom rule](screenshots/test2-sysmon-before.png)
+
+Custom rule 100201 as written in `local_rules.xml` on the manager:
+
+![Rule 100201 in local_rules.xml](screenshots/rule-100201-local-rules.png)
+
+After: Wazuh dashboard showing the rule 100201 alert and its MITRE mapping.
+
+![Dashboard, rule 100201](screenshots/test2-alert-dashboard.png)
+
+![Events list, rule 100201](screenshots/test2-alert-events.png)
+
+Alert details (command line, parent process, integrity level):
+
+![Alert details](screenshots/test2-alert-details.png)
+
+Rule and MITRE fields (T1053.005):
+
+![Rule and MITRE fields](screenshots/test2-rule-mitre.png)
 
 ## Test 3: Local Account Creation
 
@@ -69,7 +89,13 @@ Endpoint detection lab that uses **Sysmon** and **Wazuh** to detect common attac
 - **Note:** Wazuh maps this rule to **T1098 (Account Manipulation)**, not T1136.001. Noted here so the mapping difference is clear.
 - **Details captured:** `samAccountName: testuser`, `oldUacValue: 0x0`, `newUacValue: 0x15`, `primaryGroupId: 513`
 - **Note on `%%1793`, `%%1794`, `%%1797`:** Windows resource placeholders meaning "not set", "never" and "all"
-- **Evidence:** `screenshots/test3-*.png`
+- **Evidence:**
+
+![Rule 60109 alert](screenshots/test3-rule-60109.png)
+
+![Event data for the new account](screenshots/test3-eventdata.png)
+
+![Windows Event ID 4720, target user testuser](screenshots/test3-event-4720.png)
 
 ## MITRE ATT&CK Mapping
 
@@ -100,7 +126,11 @@ Sysmon deployment, Wazuh agent and manager administration, custom rule writing (
 │   ├── test2-alert-dashboard.png
 │   ├── test2-alert-details.png
 │   ├── test2-rule-mitre.png
-│   └── test3-*.png
+│   ├── rule-100201-local-rules.png
+│   ├── test2-alert-events.png
+│   ├── test3-rule-60109.png
+│   ├── test3-eventdata.png
+│   └── test3-event-4720.png
 └── report/
     └── Sysmon_Wazuh_Project_Report.pdf
 ```
